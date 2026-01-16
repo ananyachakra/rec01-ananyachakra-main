@@ -20,7 +20,7 @@ class Task(object):
         f = open('hours.csv', 'w')
         w = csv.writer(f)
 
-        # WRITE HEADER (REQUIRED)
+        # write header
         w.writerow(['name', 'day', 'time'])
 
         for entry in self.hours:
@@ -43,11 +43,10 @@ class Task(object):
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
-        f = open('part6.txt', 'w')
-
-        # SKIP HEADER
+        # skip header
         next(reader)
 
+        f = open('part6.txt', 'w')
         for row in reader:
             f.write(str(row))
 
@@ -59,11 +58,10 @@ class Task(object):
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
-        f = open('part7.txt', 'w')
-
-        # SKIP HEADER
+        # skip header
         next(reader)
 
+        f = open('part7.txt', 'w')
         for row in reader:
             for cell in row:
                 f.write(cell)
