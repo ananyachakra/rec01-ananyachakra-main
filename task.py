@@ -3,6 +3,7 @@ from requests import get
 import json
 import csv
 import ssl
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
@@ -18,6 +19,9 @@ class Task(object):
         # write output to hours.csv
         f = open('hours.csv', 'w')
         w = csv.writer(f)
+
+        # WRITE HEADER (REQUIRED)
+        w.writerow(['name', 'day', 'time'])
 
         for entry in self.hours:
             w.writerow([entry['name'], entry['day'], entry['time']])
@@ -40,8 +44,13 @@ class Task(object):
         reader = csv.reader(fin)
 
         f = open('part6.txt', 'w')
+
+        # SKIP HEADER
+        next(reader)
+
         for row in reader:
             f.write(str(row))
+
         f.close()
         fin.close()
 
@@ -51,17 +60,21 @@ class Task(object):
         reader = csv.reader(fin)
 
         f = open('part7.txt', 'w')
+
+        # SKIP HEADER
+        next(reader)
+
         for row in reader:
             for cell in row:
                 f.write(cell)
+
         f.close()
         fin.close()
 
 
 if __name__ == '__main__':
     task = Task()
-    # Uncomment these when you want to generate the files locally
-    # task.part4()
-    # task.part5()
-    # task.part6()
-    # task.part7()
+    task.part4()
+    task.part5()
+    task.part6()
+    task.part7()
