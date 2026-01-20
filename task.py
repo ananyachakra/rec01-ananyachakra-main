@@ -39,35 +39,45 @@ class Task(object):
         f.close()
 
     def part6(self):
-        # write output to 'part6.txt'
-        fin = open('hours.csv', 'r')
-        reader = csv.reader(fin)
+    # write output to 'part6.txt'
+    fin = open('hours.csv', 'r')
+    reader = csv.reader(fin)
 
-        f = open('part6.txt', 'w')
-        for row in reader:
-            # skip header row
-            if row == ['name', 'day', 'time']:
-                continue
-            f.write(str(row))
+    f = open('part6.txt', 'w')
+    for row in reader:
+        # normalize row cells to handle BOM/whitespace
+        cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
 
-        f.close()
-        fin.close()
+        # skip header row
+        if cleaned == ['name', 'day', 'time']:
+            continue
 
-    def part7(self):
-        # write output to 'part7.txt'
-        fin = open('hours.csv', 'r')
-        reader = csv.reader(fin)
+        f.write(str(row))
 
-        f = open('part7.txt', 'w')
-        for row in reader:
-            # skip header row
-            if row == ['name', 'day', 'time']:
-                continue
-            for cell in row:
-                f.write(cell)
+    f.close()
+    fin.close()
 
-        f.close()
-        fin.close()
+
+def part7(self):
+    # write output to 'part7.txt'
+    fin = open('hours.csv', 'r')
+    reader = csv.reader(fin)
+
+    f = open('part7.txt', 'w')
+    for row in reader:
+        # normalize row cells to handle BOM/whitespace
+        cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
+
+        # skip header row
+        if cleaned == ['name', 'day', 'time']:
+            continue
+
+        for cell in row:
+            f.write(cell)
+
+    f.close()
+    fin.close()
+
 
 
 if __name__ == '__main__':
