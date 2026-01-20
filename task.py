@@ -43,16 +43,11 @@ class Task(object):
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
+        # ALWAYS skip header row
+        next(reader, None)
+
         f = open('part6.txt', 'w')
         for row in reader:
-            # Robust header skip (handles BOM + extra whitespace)
-            if len(row) >= 3:
-                c0 = row[0].lstrip('\ufeff').strip()
-                c1 = row[1].strip()
-                c2 = row[2].strip()
-                if c0 == 'name' and c1 == 'day' and c2 == 'time':
-                    continue
-
             f.write(str(row))
 
         f.close()
@@ -63,16 +58,11 @@ class Task(object):
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
+        # ALWAYS skip header row
+        next(reader, None)
+
         f = open('part7.txt', 'w')
         for row in reader:
-            # Robust header skip (handles BOM + extra whitespace)
-            if len(row) >= 3:
-                c0 = row[0].lstrip('\ufeff').strip()
-                c1 = row[1].strip()
-                c2 = row[2].strip()
-                if c0 == 'name' and c1 == 'day' and c2 == 'time':
-                    continue
-
             for cell in row:
                 f.write(cell)
 
@@ -82,8 +72,8 @@ class Task(object):
 
 if __name__ == '__main__':
     task = Task()
-    # Leave these commented for autograder safety.
-    # Uncomment only if you want to generate files locally.
+    # Leave commented for autograder safety
+    # Uncomment ONLY for local testing
     # task.part4()
     # task.part5()
     # task.part6()
