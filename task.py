@@ -39,50 +39,52 @@ class Task(object):
         f.close()
 
     def part6(self):
-    # write output to 'part6.txt'
-    fin = open('hours.csv', 'r')
-    reader = csv.reader(fin)
+        # write output to 'part6.txt'
+        fin = open('hours.csv', 'r')
+        reader = csv.reader(fin)
 
-    f = open('part6.txt', 'w')
-    for row in reader:
-        # normalize row cells to handle BOM/whitespace
-        cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
+        f = open('part6.txt', 'w')
+        for row in reader:
+            # Robust header skip (handles BOM + extra whitespace)
+            if len(row) >= 3:
+                c0 = row[0].lstrip('\ufeff').strip()
+                c1 = row[1].strip()
+                c2 = row[2].strip()
+                if c0 == 'name' and c1 == 'day' and c2 == 'time':
+                    continue
 
-        # skip header row
-        if cleaned == ['name', 'day', 'time']:
-            continue
+            f.write(str(row))
 
-        f.write(str(row))
+        f.close()
+        fin.close()
 
-    f.close()
-    fin.close()
+    def part7(self):
+        # write output to 'part7.txt'
+        fin = open('hours.csv', 'r')
+        reader = csv.reader(fin)
 
+        f = open('part7.txt', 'w')
+        for row in reader:
+            # Robust header skip (handles BOM + extra whitespace)
+            if len(row) >= 3:
+                c0 = row[0].lstrip('\ufeff').strip()
+                c1 = row[1].strip()
+                c2 = row[2].strip()
+                if c0 == 'name' and c1 == 'day' and c2 == 'time':
+                    continue
 
-def part7(self):
-    # write output to 'part7.txt'
-    fin = open('hours.csv', 'r')
-    reader = csv.reader(fin)
+            for cell in row:
+                f.write(cell)
 
-    f = open('part7.txt', 'w')
-    for row in reader:
-        # normalize row cells to handle BOM/whitespace
-        cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
-
-        # skip header row
-        if cleaned == ['name', 'day', 'time']:
-            continue
-
-        for cell in row:
-            f.write(cell)
-
-    f.close()
-    fin.close()
-
+        f.close()
+        fin.close()
 
 
 if __name__ == '__main__':
     task = Task()
-    task.part4()
-    task.part5()
-    task.part6()
-    task.part7()
+    # Leave these commented for autograder safety.
+    # Uncomment only if you want to generate files locally.
+    # task.part4()
+    # task.part5()
+    # task.part6()
+    # task.part7()
