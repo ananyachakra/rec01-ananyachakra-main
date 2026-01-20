@@ -20,7 +20,7 @@ class Task(object):
         f = open('hours.csv', 'w')
         w = csv.writer(f)
 
-        # header row
+        # write header
         w.writerow(['name', 'day', 'time'])
 
         for entry in self.hours:
@@ -29,7 +29,7 @@ class Task(object):
         f.close()
 
     def part5(self):
-        # write output to 'part5.txt'
+        # write output to part5.txt
         fin = open('hours.csv', 'r')
         contents = fin.read()
         fin.close()
@@ -39,30 +39,44 @@ class Task(object):
         f.close()
 
     def part6(self):
-        # write output to 'part6.txt'
+        # write output to part6.txt
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
-        # ALWAYS skip header row
-        next(reader, None)
-
         f = open('part6.txt', 'w')
         for row in reader:
+            # skip empty rows
+            if not row:
+                continue
+
+            # normalize to detect header safely
+            cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
+            if cleaned == ['name', 'day', 'time']:
+                continue
+
+            # write exactly as Python would print the list
             f.write(str(row))
 
         f.close()
         fin.close()
 
     def part7(self):
-        # write output to 'part7.txt'
+        # write output to part7.txt
         fin = open('hours.csv', 'r')
         reader = csv.reader(fin)
 
-        # ALWAYS skip header row
-        next(reader, None)
-
         f = open('part7.txt', 'w')
         for row in reader:
+            # skip empty rows
+            if not row:
+                continue
+
+            # normalize to detect header safely
+            cleaned = [cell.lstrip('\ufeff').strip() for cell in row]
+            if cleaned == ['name', 'day', 'time']:
+                continue
+
+            # write every cell with no separators
             for cell in row:
                 f.write(cell)
 
@@ -72,8 +86,8 @@ class Task(object):
 
 if __name__ == '__main__':
     task = Task()
-    # Leave commented for autograder safety
-    # Uncomment ONLY for local testing
+    # Leave commented for Gradescope
+    # Uncomment only for local testing
     # task.part4()
     # task.part5()
     # task.part6()
